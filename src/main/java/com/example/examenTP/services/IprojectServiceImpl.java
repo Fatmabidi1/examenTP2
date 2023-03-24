@@ -36,4 +36,10 @@ s.setProject(project);
         project.getUserList().add(user);
         projectRepository.save(project);
     }
+
+    @Override
+    public void assignProjectToClient(int projectId, String firstName, String lastName) {
+        User user= userRepository.findByFirstNameAndLastName(firstName,lastName);
+        assignProjectToUser(projectId, user.getId());
+    }
 }

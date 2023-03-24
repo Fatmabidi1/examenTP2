@@ -5,4 +5,5 @@ import com.example.examenTP.entities.Project;
 public interface IprojectService {
     Project addProject(Project project);
     void assignProjectToUser (int projectId, int userId);
+    void assignProjectToClient(int projectId, String firstName, String lastName);
 }
