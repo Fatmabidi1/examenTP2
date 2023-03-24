@@ -9,6 +9,7 @@ import com.example.examenTP.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Service
@@ -42,4 +43,19 @@ s.setProject(project);
         User user= userRepository.findByFirstNameAndLastName(firstName,lastName);
         assignProjectToUser(projectId, user.getId());
     }
+
+    @Override
+    public List<Project> getAllCurrentProject() {
+        return projectRepository.findAll().stream().filter(project -> project.getSprintList().stream()
+                .filter(sprint -> sprint.getStartDate().isAfter(LocalDate.now())).count()>0).toList();
+
+    }
+
+    @Override
+    public List<Project> getProjectsByScrumMaster(String fName, String lName) {
+        return projectRepository.findByUserListFnameAndUserListIname(fName,lName);
+
+    }
+
+
 }

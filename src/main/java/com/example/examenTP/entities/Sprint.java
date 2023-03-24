@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import javax.persistence.*;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Table( name = "sprint")
@@ -15,7 +16,7 @@ public class Sprint {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String Description;
-    private Date startDate;
+    private LocalDate startDate;
     @ManyToOne
     private Project project;
 }
