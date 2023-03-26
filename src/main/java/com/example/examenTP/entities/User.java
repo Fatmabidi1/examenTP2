@@ -17,7 +17,7 @@ public class User {
     private String email;
     private String pwd;
     private String fname;
-    private String Iname;
+    private String iname;
 @Enumerated
     private Role role;
     @ManyToMany(mappedBy = "userList")

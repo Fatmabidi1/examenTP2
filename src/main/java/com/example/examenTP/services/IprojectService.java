@@ -10,4 +10,5 @@ public interface IprojectService {
     void assignProjectToClient(int projectId, String firstName, String lastName);
     List<Project> getAllCurrentProject() ;
     List<Project> getProjectsByScrumMaster(String fName, String lName);
+    List<Project> getNbrSprintByCurrentProject();
 }

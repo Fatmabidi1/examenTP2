@@ -7,6 +7,7 @@ import com.example.examenTP.repositories.ProjectRepository;
 import com.example.examenTP.repositories.SprintRepository;
 import com.example.examenTP.repositories.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
@@ -22,7 +23,7 @@ public class IprojectServiceImpl implements IprojectService{
     public Project addProject(Project project) {
         List<Sprint> list = project.getSprintList();
         for (Sprint s:list) {
-s.setProject(project);
+        s.setProject(project);
         }
         projectRepository.save(project);
         sprintRepository.saveAll(list);
@@ -40,7 +41,7 @@ s.setProject(project);
 
     @Override
     public void assignProjectToClient(int projectId, String firstName, String lastName) {
-        User user= userRepository.findByFirstNameAndLastName(firstName,lastName);
+        User user= userRepository.findByFnameAndIname(firstName,lastName);
         assignProjectToUser(projectId, user.getId());
     }
 
@@ -55,6 +56,15 @@ s.setProject(project);
     public List<Project> getProjectsByScrumMaster(String fName, String lName) {
         return projectRepository.findByUserListFnameAndUserListIname(fName,lName);
 
+    }
+    @Scheduled(fixedRate = 30000)
+    @Override
+    public List<Project> getNbrSprintByCurrentProject() {
+        List<Project> p = getAllCurrentProject();
+        for (Project prj: p) {
+            System.out.println("nbre de sprint pour ce projet : "+ prj.getDescription()+" = "+prj.getSprintList().size());
+        }
+        return p;
     }
 
 
